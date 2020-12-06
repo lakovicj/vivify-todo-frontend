@@ -1,6 +1,7 @@
-import { withFormik, Form, Field, yupToFormErrors } from 'formik';
+import { withFormik, Form, Field } from 'formik';
 import authService from '../services/AuthService';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 const Register = ({ errors, touched, isSubmiting }) => {
 
@@ -10,7 +11,7 @@ const Register = ({ errors, touched, isSubmiting }) => {
                 <div className="col-md-6">
                     <div className="card">
                         <header className="card-header">
-                            <a href="" className="float-right btn btn-outline-primary mt-1">Log in</a>
+                            <Link to="/login" className="float-right btn btn-outline-primary mt-1">Log In</Link>
                             <h4 className="card-title mt-2">Sign up</h4>
                         </header>
                         <article className="card-body">
@@ -49,7 +50,7 @@ const Register = ({ errors, touched, isSubmiting }) => {
                                 <small className="text-muted">By clicking the 'Register' button, you confirm that you accept our <br /> Terms of use and Privacy Policy.</small>
                             </Form>
                         </article>
-                        <div className="border-top card-body text-center">Have an account? <a href="">Log In</a></div>
+                        <div className="border-top card-body text-center">Have an account? <Link to="/login">Log In</Link></div>
                     </div>
                 </div>
             </div>
