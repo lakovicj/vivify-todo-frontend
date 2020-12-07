@@ -2,6 +2,7 @@ import { withFormik, Form, Field } from 'formik';
 import authService from '../services/AuthService';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import { loginSchema } from './forms/validation/auth';
 
 const Login = ({ errors, touched, isSubmiting }) => {
     return (
@@ -50,10 +51,7 @@ const FormikLogin = withFormik({
             password: password || ''
         }
     },
-    validationSchema: Yup.object().shape({
-        email:      Yup.string().required("Email is required"),
-        password:   Yup.string().required("Password is required")
-    }),
+    validationSchema: loginSchema,
     handleSubmit(values, { resetForm, setSubmitting, setErrors }) {
         const { email, password } = values;
         authService.login(email, password)
