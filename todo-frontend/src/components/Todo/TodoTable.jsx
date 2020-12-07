@@ -2,7 +2,6 @@ import React from 'react';
 import TodoRow from './TodoRow';
 
 const TodoTable = ({ todos }) => {
-    console.log("Todos u TodoTable: ", todos);
     const todoItems = todos.map((item) => <TodoRow key={item.id} todo={item}/>);
 
     return (
