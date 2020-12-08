@@ -6,7 +6,13 @@ import FormikCreateTodo from './components/Todo/CreateTodo';
 import { Switch, Route } from 'react-router-dom';
 import TodoTableWrapper from './containers/TodoTableWrapper';
 
-function App(props) {
+function App() {
+
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    todoService.getAllTodos().then(response => setTodos(response));
+  }, [])
 
   return (
       <div className="container">
