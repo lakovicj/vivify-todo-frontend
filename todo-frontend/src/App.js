@@ -11,9 +11,7 @@ function App() {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    console.log("Usao u useEffect");
-    console.log("Pozivam axios...");
-    const tds = todoService.getAllTodos().then(response => setTodos(response));
+    todoService.getAllTodos().then(response => setTodos(response));
   }, [])
 
   return (
