@@ -70,6 +70,7 @@ const FormikRegister = withFormik({
         }
     },
     validationSchema: registerSchema,
+
     handleSubmit(values, { resetForm, setSubmitting, setErrors, props }) {
         const { firstName, lastName, email, password } = values;
         authService.register(firstName, lastName, email, password)

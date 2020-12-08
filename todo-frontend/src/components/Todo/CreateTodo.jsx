@@ -1,7 +1,7 @@
 import { withFormik, Form, Field } from 'formik';
 import todoService from '../../services/TodoService';
-import createTodoSchema from '../forms/validation/todoSchemas';
 import React from 'react'
+import { createTodoSchema } from '../forms/validation/todoSchemas';
 
 const CreateTodo = ({ touched, isSubmiting, errors }) => {
 

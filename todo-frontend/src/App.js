@@ -7,7 +7,13 @@ import { Switch, Route } from 'react-router-dom';
 import TodoTableWrapper from './containers/TodoTableWrapper';
 import TodoEditWrapper from './containers/TodoEditWrapper';
 
-function App(props) {
+function App() {
+
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    todoService.getAllTodos().then(response => setTodos(response));
+  }, [])
 
   return (
       <div className="container">
