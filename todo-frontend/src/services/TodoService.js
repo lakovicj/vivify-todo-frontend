@@ -9,14 +9,8 @@ class TodoService {
     }
 
     getAllTodos = async () => {
-        console.log("Usao u getAllTodos");
         const response = await axios.get(API_URL, {headers: this.authHeader});
-        console.log("waiting.....");
-        console.log(response);
-        console.log(response.data);
         if (response.data) {
-            console.log("Got data... returnig it...");
-            console.log(response.data);
             return response.data;
         }
         else {
@@ -26,6 +20,14 @@ class TodoService {
 
     deleteTodo = async (todoId) => {
         const response = await axios.delete(`${API_URL}/${todoId}`, {headers: this.authHeader});
+        if (response.data) {
+            return response.data;
+        }
+    }
+
+    createTodo = async (title, description, priority) => {
+        const newTodo = {title, description, priority};
+        const response = await axios.post(API_URL, newTodo, {headers: this.authHeader});
         if (response.data) {
             return response.data;
         }
