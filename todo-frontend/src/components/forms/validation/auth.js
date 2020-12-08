@@ -1,13 +1,6 @@
 import * as Yup from 'yup';
 
 
-const createTodoSchema =    Yup.object().shape({
-    title:                  Yup.string().required('Title is required'),
-    desciption:             Yup.string(),
-    priority:               Yup.string().required('Priority is required')
-})
-
-
 const loginSchema = Yup.object().shape({
     email:      Yup.string().required("Email is required"),
     password:   Yup.string().required("Password is required")
@@ -38,4 +31,4 @@ const registerSchema = Yup.object().shape({
                             .required("You have to confirm password")
 });
 
-export { loginSchema, registerSchema, createTodoSchema }
+export { loginSchema, registerSchema }

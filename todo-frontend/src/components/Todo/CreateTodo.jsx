@@ -1,6 +1,5 @@
 import { withFormik, Form, Field } from 'formik';
 import todoService from '../../services/TodoService';
-import * as Yup from 'yup';
 import React from 'react'
 import { createTodoSchema } from '../forms/validation/todoSchemas';
 
