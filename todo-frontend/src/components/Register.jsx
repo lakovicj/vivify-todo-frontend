@@ -2,6 +2,7 @@ import { withFormik, Form, Field } from 'formik';
 import authService from '../services/AuthService';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import { registerSchema } from './forms/validation/auth';
 
 const Register = ({ errors, touched, isSubmiting }) => {
 
@@ -68,30 +69,7 @@ const FormikRegister = withFormik({
             confirmPassword: confirmPassword || ''
         }
     },
-    validationSchema: Yup.object().shape({
-        firstName: Yup.string()
-            .max(40, 'First name should be 40 characters max')
-            .required('First name is required'),
-        lastName: Yup.string()
-            .max(40, 'Last name should be 40 characters max')
-            .required('Last name is required'),
-        email: Yup.string()
-            .email('Invalid email')
-            .required('Email is required'),
-        password: Yup.string()
-            .min(5, 'Password should be between 5 and 40 characters')
-            .max(40, 'Password should be between 5 and 40 characters')
-            .required('Password is required'),
-        confirmPassword: Yup.string()
-            .when('password', {
-                is: val => (val && val.length),
-                then: Yup.string().oneOf(
-                    [Yup.ref("password")],
-                    "Passwords do not match"
-                )
-            })
-            .required("You have to confirm password")
-    }),
+    validationSchema: registerSchema,
     handleSubmit(values, { resetForm, setSubmitting, setErrors, props }) {
         const { firstName, lastName, email, password } = values;
         authService.register(firstName, lastName, email, password)
