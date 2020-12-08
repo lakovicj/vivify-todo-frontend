@@ -1,26 +1,33 @@
 import React from 'react';
+import todoService from '../../services/TodoService';
+import { Redirect } from 'react-router-dom';
 
 const TodoRow = ({ todo }) => {
 
-    const handleDoneClick = () => {
+    const handleDoneClick = (todoId) => {
         console.log("Done");
     }
 
-    const handleEditClick = () => {
+    const handleEditClick = (todoId) => {
         console.log("Edit");
     }
 
-    const handleDeleteClick = () => {
-        console.log("Delete");
+    const handleDeleteClick = (todoId) => {
+        todoService.deleteTodo(todoId)
+                .then((response) => {
+                    alert("Todo deleted!");
+                    window.location.reload();
+                    //return <Redirect to="/todos"></Redirect>
+                })
     }
 
     const prioritySpan = (priority) => {
         if (priority === "high") {
-            return <span class="badge badge-danger">{priority.toUpperCase()}</span>
+            return <span className="badge badge-danger">{priority.toUpperCase()}</span>
         } else if (priority === "medium") {
-            return <span class="badge badge-warning">{priority.toUpperCase()}</span>
+            return <span className="badge badge-warning">{priority.toUpperCase()}</span>
         } else {
-            return <span class="badge badge-primary">{priority.toUpperCase()}</span>
+            return <span className="badge badge-primary">{priority.toUpperCase()}</span>
         }
     }
 
@@ -33,9 +40,9 @@ const TodoRow = ({ todo }) => {
             </td>
             <td key={"compl-" + todo.id}>{todo.completed ? "Yes" : "No"}</td>
             <td key={"acts-" + todo.id}>
-                <button key={"done-" + todo.id} className="btn btn-dark" onClick={handleDoneClick}>Done</button>
-                <button key={"edit-" + todo.id} className="btn btn-warning" onClick={handleEditClick}>Edit</button>
-                <button key={"delete-" + todo.id} className="btn btn-danger" onClick={handleDeleteClick}>Delete</button>
+                <button key={"done-" + todo.id} className="btn btn-dark" onClick={() => handleDoneClick(todo.id)}>Done</button>
+                <button key={"edit-" + todo.id} className="btn btn-warning" onClick={() => handleEditClick(todo.id)}>Edit</button>
+                <button key={"delete-" + todo.id} className="btn btn-danger" onClick={() => handleDeleteClick(todo.id)}>Delete</button>
             </td>
         </tr>
     )

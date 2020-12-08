@@ -23,6 +23,13 @@ class TodoService {
             return [];
         }
     }
+
+    deleteTodo = async (todoId) => {
+        const response = await axios.delete(`${API_URL}/${todoId}`, {headers: this.authHeader});
+        if (response.data) {
+            return response.data;
+        }
+    }
 }
 
 const todoService = new TodoService();
