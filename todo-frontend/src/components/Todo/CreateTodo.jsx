@@ -1,6 +1,6 @@
 import { withFormik, Form, Field } from 'formik';
 import todoService from '../../services/TodoService';
-import * as Yup from 'yup';
+import createTodoSchema from '../forms/validation/todoSchemas';
 import React from 'react'
 
 const CreateTodo = ({ touched, isSubmiting, errors }) => {
@@ -56,11 +56,7 @@ const FormikCreateTodo = withFormik({
             priority: priority || 'low'
         }
     },
-    validationSchema: Yup.object().shape({
-        title:        Yup.string().required('Title is required'),
-        desciption:   Yup.string(),
-        priority:     Yup.string().required('Priority is required')
-    }),
+    validationSchema: createTodoSchema,
     handleSubmit(values, { resetForm, setSubmitting, props }) {
         const { title, description, priority } = values;
         todoService.createTodo(title, description, priority)
