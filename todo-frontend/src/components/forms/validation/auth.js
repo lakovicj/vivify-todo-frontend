@@ -1,10 +1,12 @@
 import * as Yup from 'yup';
 
+
 const createTodoSchema =    Yup.object().shape({
     title:                  Yup.string().required('Title is required'),
     desciption:             Yup.string(),
     priority:               Yup.string().required('Priority is required')
 })
+
 
 const loginSchema = Yup.object().shape({
     email:      Yup.string().required("Email is required"),
