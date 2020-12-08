@@ -70,12 +70,14 @@ const FormikRegister = withFormik({
         }
     },
     validationSchema: registerSchema,
-    handleSubmit(values, { resetForm, setSubmitting, setErrors }) {
+
+    handleSubmit(values, { resetForm, setSubmitting, setErrors, props }) {
         const { firstName, lastName, email, password } = values;
         authService.register(firstName, lastName, email, password)
             .then(response => {
                 alert(response.data.message);
                 resetForm();
+                props.history.push("/login");
             })
             .catch(err => {
                 setErrors({ email: 'Email is already taken' });

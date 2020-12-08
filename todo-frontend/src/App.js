@@ -5,6 +5,7 @@ import FormikLogin from './components/Login';
 import FormikCreateTodo from './components/Todo/CreateTodo';
 import { Switch, Route } from 'react-router-dom';
 import TodoTableWrapper from './containers/TodoTableWrapper';
+import TodoEditWrapper from './containers/TodoEditWrapper';
 
 function App() {
 
@@ -19,8 +20,10 @@ function App() {
         <Switch>
           <Route path="/login" component={FormikLogin}></Route>
           <Route path="/register" component={FormikRegister}></Route>
+          <Route path="/todos/:id" component={TodoEditWrapper}></Route>
           <Route path="/todos" component={TodoTableWrapper}></Route>
           <Route path="/create" component={FormikCreateTodo}></Route>
+          <Route path="/" component={TodoTableWrapper}></Route>
         </Switch>
       </div>
   );

@@ -1,0 +1,74 @@
+import { withFormik, Form, Field } from 'formik';
+import todoService from '../../services/TodoService';
+import * as Yup from 'yup';
+import React from 'react'
+import { createTodoSchema } from '../forms/validation/todoSchemas.js';
+
+const EditTodo = ({ touched, isSubmiting, errors }) => {
+
+    return (
+        <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card">
+                        <header className="card-header">
+                            <h4 className="card-title mt-2">EDIT TODO</h4>
+                        </header>
+                        <article className="card-body">
+                            <Form autoComplete="off">
+                                <div className="form-group">
+                                    <label>Title</label>
+                                    <Field type="text" name="title" className="form-control" placeholder="Title" />
+                                    {touched.title && errors.title && <small className="form-text text-danger">{errors.title}</small>}
+                                </div>
+                                <div className="form-group">
+                                    <label>Description</label>
+                                    <Field name="description" className="form-control" type="text" placeholder="Description"/>
+                                    {touched.description && errors.description && <small className="form-text text-danger">{errors.description}</small>}
+                                </div>
+                                <div className="form-group">
+                                    <label>Priority</label>
+                                    <Field component="select" name="priority">
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
+                                    </Field>
+                                </div>
+                                <div className="form-group">
+                                    <button disabled={isSubmiting} type="submit" className="btn btn-primary btn-block">
+                                         SUBMIT 
+                                    </button>
+                                </div>
+                            </Form>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    )
+}
+
+const FormikEditTodo = withFormik({
+    mapPropsToValues({ todo }) {
+        console.log("Todo: ", todo);
+        return {
+            title: todo.title || '',
+            description: todo.description || '',
+            priority: todo.priority || 'low'
+        }
+    },
+    validationSchema: createTodoSchema,
+    handleSubmit(values, { resetForm, setSubmitting, props }) {
+        const { title, description, priority } = values;
+        todoService.updateTodo(props.todoId, {title, description, priority})
+                    .then(response => {
+                        resetForm();
+                        alert("Todo updated!");
+                        props.history.push('/todos');
+                    })
+        setSubmitting(false);
+    }
+}) (EditTodo);
+
+export default FormikEditTodo;

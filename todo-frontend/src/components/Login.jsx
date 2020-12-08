@@ -56,8 +56,9 @@ const FormikLogin = withFormik({
         const { email, password } = values;
         authService.login(email, password)
             .then((response) => {
-                console.log(response);
+                resetForm();
                 alert("You are logged in!");
+                props.history.push("/todos");
             })
             .catch((err) => {
                 console.log(err);

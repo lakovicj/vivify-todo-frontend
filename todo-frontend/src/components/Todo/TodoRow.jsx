@@ -1,15 +1,21 @@
 import React from 'react';
 import todoService from '../../services/TodoService';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const TodoRow = ({ todo }) => {
 
+    let history = useHistory();
+
     const handleDoneClick = (todoId) => {
-        console.log("Done");
+        todoService.updateTodo(todoId, {completed: true})
+                    .then((response) => {
+                        alert("Set to Done!");
+                        window.location.reload();
+                    })
     }
 
     const handleEditClick = (todoId) => {
-        console.log("Edit");
+        history.push(`/todos/${todoId}`);
     }
 
     const handleDeleteClick = (todoId) => {
@@ -17,7 +23,7 @@ const TodoRow = ({ todo }) => {
                 .then((response) => {
                     alert("Todo deleted!");
                     window.location.reload();
-                    //return <Redirect to="/todos"></Redirect>
+                    
                 })
     }
 
@@ -31,6 +37,12 @@ const TodoRow = ({ todo }) => {
         }
     }
 
+    const showDoneButton = (todo) => {
+        if (!todo.completed) {
+            return <button key={"done-" + todo.id} className="btn btn-dark" onClick={() => handleDoneClick(todo.id)}>Done</button>;
+        }
+    }
+
     return (
         <tr key={todo.id}>
             <td key={"title-" + todo.id}>{todo.title}</td>
@@ -40,7 +52,7 @@ const TodoRow = ({ todo }) => {
             </td>
             <td key={"compl-" + todo.id}>{todo.completed ? "Yes" : "No"}</td>
             <td key={"acts-" + todo.id}>
-                <button key={"done-" + todo.id} className="btn btn-dark" onClick={() => handleDoneClick(todo.id)}>Done</button>
+                {showDoneButton(todo)}
                 <button key={"edit-" + todo.id} className="btn btn-warning" onClick={() => handleEditClick(todo.id)}>Edit</button>
                 <button key={"delete-" + todo.id} className="btn btn-danger" onClick={() => handleDeleteClick(todo.id)}>Delete</button>
             </td>
