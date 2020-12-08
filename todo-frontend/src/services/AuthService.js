@@ -36,6 +36,17 @@ class AuthService {
         const user = localStorage.getItem('user');
         return JSON.parse(user);
     }
+
+    getAuthorizationHeader = () => {
+        const token = this.getToken();
+        if (token) {
+            return {
+                Authorization: `Bearer ${token}`
+            }
+        } else {
+            return {};
+        }
+    }
 }
 
 const authService = new AuthService();
