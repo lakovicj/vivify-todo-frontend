@@ -54,12 +54,13 @@ const FormikLogin = withFormik({
         email:      Yup.string().required("Email is required"),
         password:   Yup.string().required("Password is required")
     }),
-    handleSubmit(values, { resetForm, setSubmitting, setErrors }) {
+    handleSubmit(values, { resetForm, setSubmitting, setErrors, props }) {
         const { email, password } = values;
         authService.login(email, password)
             .then((response) => {
-                console.log(response);
+                resetForm();
                 alert("You are logged in!");
+                props.history.push("/todos");
             })
             .catch((err) => {
                 console.log(err);

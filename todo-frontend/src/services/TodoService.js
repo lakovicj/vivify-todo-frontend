@@ -32,6 +32,20 @@ class TodoService {
             return response.data;
         }
     }
+
+    updateTodo = async (todoId, updatedTodo) => {
+        const response = await axios.put(`${API_URL}/${todoId}`, updatedTodo, {headers: this.authHeader});
+        if (response.data) {
+            return response.data;
+        }
+    }
+
+    getTodo = async (id) => {
+        const response = await axios.get(`${API_URL}/${id}`, {headers: this.authHeader});
+        if (response.data) {
+            return response.data;
+        }
+    }
 }
 
 const todoService = new TodoService();
